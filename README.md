@@ -9,14 +9,14 @@ Example
 
     from pyml import *
 
-    doc =  \
+    doc = \
     HTML(
         HEAD(
             TITLE('Hello from PYML'),
         ),
         BODY(
             FORM(
-                    BUTTON("Button %s", style="color: red") << range(1, 5) # map with list.
+                BUTTON("Button %s", style="color: red") << range(1, 5) # map with list.
             ),
             UL(
                 LI('Hi') * 5 # repeat 5 times.
@@ -25,8 +25,9 @@ Example
                 DIV("With div."),
                 DIV("Div with parameters.", _id="foo", _class="bar"),
                 "Without div."
+            ),
+            ~ FOOTER('comment-out footer'),
             )
-        )
     )
 
     print doc.render()
@@ -36,28 +37,28 @@ Output
 ------
 
     <html>
-            <head>
-                <title>Hello from PYML</title>
-            </head>
-            <body>
-                <form>
-                    <button style="color: red">Button 1</button>
-                    <button style="color: red">Button 2</button>
-                    <button style="color: red">Button 3</button>
-                    <button style="color: red">Button 4</button>
-                </form>
-                <ul>
-                    <li>Hi</li>
-                    <li>Hi</li>
-                    <li>Hi</li>
-                    <li>Hi</li>
-                    <li>Hi</li>
-                </ul>
-                <footer>
-                    <div>With div.</div>
-                    <div class="bar" id="foo">Div with parameters.</div>
-                    Without div.
-                </footer>
-            </body>
-        </html>
-
+        <head>
+            <title>Hello from PYML</title>
+        </head>
+        <body>
+            <form>
+                <button style="color: red">Button 1</button>
+                <button style="color: red">Button 2</button>
+                <button style="color: red">Button 3</button>
+                <button style="color: red">Button 4</button>
+            </form>
+            <ul>
+                <li>Hi</li>
+                <li>Hi</li>
+                <li>Hi</li>
+                <li>Hi</li>
+                <li>Hi</li>
+            </ul>
+            <footer>
+                <div>With div.</div>
+                <div class="bar" id="foo">Div with parameters.</div>
+                Without div.
+            </footer>
+            <!-- <footer>comment-out footer</footer> -->
+        </body>
+    </html>
