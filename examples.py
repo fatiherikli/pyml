@@ -1,29 +1,23 @@
 from pyml import *
 
-doc =  HTML(
-    UL(
-        LI(
-            SPAN(
-                SPAN(
-                    'SELAMMMM',
-                    ~ DIV('OK')
-                )
-            )
-        ),
-        LI('SELAM'),
-        LI('--> %s') << range(1, 5) ,
-        LI('SELAM') ,
-        LI('SELAM'),
-        LI('SELAM'),
-        "SELAM",
-        "NABER",
-        BR(),
-        "IYI MISIN?",
-        ),
-    DIV(
-        SPAN('OK', id="selam", _class="naber") * 10
+doc =  \
+HTML(
+    HEAD(
+        TITLE('Hello from PYML'),
     ),
-    DIV(),
+    BODY(
+        FORM(
+                BUTTON("Button %s", style="color: red") << range(1, 5)
+        ),
+        UL(
+            LI('Hi') * 5
+        ),
+        FOOTER(
+            DIV("With div."),
+            DIV("Div with parameters.", _id="foo", _class="bar"),
+            "Without div."
+        )
     )
+)
 
 print doc.render()

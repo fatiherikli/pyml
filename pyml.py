@@ -113,24 +113,46 @@ class TagNode(BaseNode):
         return mapped_list
 
 
-class HTML(TagNode):
-    tag_name = "html"
-
-class DIV(TagNode):
-    tag_name = "div"
-
-class P(TagNode):
-    tag_name = "p"
-
 class BR(TagNode):
     tag_name = "br"
     self_closing = True
 
-class SPAN(TagNode):
-    tag_name = "span"
 
-class UL(TagNode):
-    tag_name = "ul"
 
-class LI(TagNode):
-    tag_name = "li"
+
+# Create the HTML tags dynamically.
+__all__ = [
+    'HTML',
+    'HEAD',
+    'TITLE',
+    'BODY',
+    'FOOTER',
+    'P',
+    'H1',
+    'H2',
+    'H3',
+    'H4',
+    'H5',
+    'H6',
+    'SPAN',
+    'UL',
+    'OL',
+    'LI',
+    'DIV',
+    'A',
+    'IMG',
+    'FORM',
+    'INPUT',
+    'LABEL',
+    'SELECT',
+    'BUTTON',
+    'HR',
+    'BR',
+    ]
+
+for tag in __all__:
+    globals()[tag] = type(tag, (TagNode, ), {
+        'tag_name': tag.lower(),
+        'self_closing' : tag in ['HR', 'BR']
+    })
+
