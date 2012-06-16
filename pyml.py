@@ -48,8 +48,6 @@ class TagNode(BaseNode):
         return '</%s>' % self.tag_name
 
     def close_self(self):
-        if self.parameters:
-            return '<%s %s>' % (self.tag_name, ' '.join(self.build_attrs()))
         return '<%s />' % self.tag_name
 
     def build_attrs(self):
@@ -136,5 +134,3 @@ class UL(TagNode):
 
 class LI(TagNode):
     tag_name = "li"
-
-
