@@ -34,8 +34,10 @@ class TagNode(BaseNode):
                 return TextNode(item)
             return item
 
-        self.content = map(convert_text_node, flatten(args))
         self.parameters = kwargs
+        self.content = map(convert_text_node, flatten(args))
+        self.have_sub_tags = any([isinstance(item, TagNode)
+                                  for item in self.content])
 
     def start_tag(self):
         if self.parameters:
@@ -77,9 +79,6 @@ class TagNode(BaseNode):
             if isinstance(sub_tag, TagNode):
                 self._recursive_for_indent(sub_tag, indent+1)
 
-    def have_sub_tags(self):
-        return any([isinstance(item, TagNode) for item in self.content])
-
     def prepare(self):
         if not self.indent:
             self._recursive_for_indent(self)
@@ -87,7 +86,7 @@ class TagNode(BaseNode):
         if self.self_closing:
             return self.close_self()
 
-        if not self.have_sub_tags():
+        if not self.have_sub_tags:
             return ''.join(self.build_text_node())
 
         return '\n'.join(self.build_lines())
@@ -139,30 +138,3 @@ class LI(TagNode):
     tag_name = "li"
 
 
-doc =  HTML(
-            UL(
-                LI(
-                    SPAN(
-                        SPAN(
-                            'SELAMMMM',
-                            ~ DIV('OK')
-                        )
-                    )
-                ),
-                LI('SELAM'),
-                LI('--> %s') << range(1, 5) ,
-                LI('SELAM') ,
-                LI('SELAM'),
-                LI('SELAM'),
-                "SELAM",
-                "NABER",
-                BR(),
-                "IYI MISIN?",
-            ),
-            DIV(
-                SPAN('OK', id="selam", _class="naber") * 10
-            ),
-            DIV(),
-)
-
-print doc.render()
