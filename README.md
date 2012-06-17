@@ -31,6 +31,7 @@ Example
     )
 
     doc.lang_attr = "en"
+    doc.hede_budu_attr = "bla bla"
 
     print doc.render()
 
@@ -38,7 +39,7 @@ Example
 Output
 ------
 
-    <html lang="en">
+    <html lang="en" hede_budu="bla bla">
         <head>
             <title>Hello from PYML</title>
         </head>

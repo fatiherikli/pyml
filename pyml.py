@@ -51,12 +51,9 @@ class TagNode(BaseNode):
         return '<%s />' % self.tag_name
 
     def build_attr_name(self, param):
-        if param.startswith('_'):
-            param = param[1:]
-
-        if param.endswith('_attr'):
-            param = param[:-5]
-
+        param = param \
+                    .rstrip('_')  \
+                    .rstrip('_attr')
         return param
 
     def build_attrs(self):
