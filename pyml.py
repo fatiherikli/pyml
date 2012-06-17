@@ -50,11 +50,18 @@ class TagNode(BaseNode):
     def close_self(self):
         return '<%s />' % self.tag_name
 
+    def build_attr_name(self, param):
+        if param.startswith('_'):
+            param = param[1:]
+
+        if param.endswith('_attr'):
+            param = param[:-5]
+
+        return param
+
     def build_attrs(self):
         for param, value in self.parameters.iteritems():
-            if param.startswith('_'):
-                param = param[1:]
-            yield '%s="%s"' % (param, value)
+            yield '%s="%s"' % (self.build_attr_name(param), value)
 
     def build_text_node(self):
         yield self.start_tag()
@@ -111,6 +118,11 @@ class TagNode(BaseNode):
             clone_object.data = mapping
             mapped_list.append(clone_object)
         return mapped_list
+
+    def __setattr__(self, key, value):
+        if key.endswith('_attr'):
+            self.parameters[self.build_attr_name(key)] = value
+        super(TagNode, self).__setattr__(key, value)
 
 
 class BR(TagNode):

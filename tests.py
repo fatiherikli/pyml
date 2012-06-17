@@ -51,6 +51,18 @@ class TestGenerateHtml(unittest.TestCase):
             '</ul>'
         )
 
+    def test_attr_setting(self):
+        doc = HTML(HEAD(TITLE('hi')))
+        doc.lang_attr = "en"
+
+        self.assertEqual(
+            doc.render(),
+            '<html lang="en">\n'
+            '    <head>\n'
+            '        <title>hi</title>\n'
+            '    </head>\n'
+            '</html>'
+        )
 
 
 if __name__ == '__main__':

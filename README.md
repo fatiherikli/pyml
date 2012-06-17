@@ -30,13 +30,15 @@ Example
             )
     )
 
+    doc.lang_attr = "en"
+
     print doc.render()
 
 
 Output
 ------
 
-    <html>
+    <html lang="en">
         <head>
             <title>Hello from PYML</title>
         </head>
