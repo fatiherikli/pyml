@@ -52,7 +52,7 @@ class TagNode(BaseNode):
 
     def build_attr_name(self, param):
         param = param \
-                    .rstrip('_')  \
+                    .lstrip('_')  \
                     .rstrip('_attr')
         return param
 
