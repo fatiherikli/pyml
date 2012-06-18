@@ -122,13 +122,6 @@ class TagNode(BaseNode):
         super(TagNode, self).__setattr__(key, value)
 
 
-class BR(TagNode):
-    tag_name = "br"
-    self_closing = True
-
-
-
-
 # Create the HTML tags dynamically.
 __all__ = [
     'HTML',
