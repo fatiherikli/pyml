@@ -72,22 +72,29 @@ class TestGenerateHtml(unittest.TestCase):
 
 
     def test_inheritance(self):
+
         base_doc = \
         HTML(
             HEAD(
                 TITLE('Title of base.')
             ),
             BODY(
+                # creating a block `content-place`
                 DIV(id='container') // 'content-place'
             )
         )
 
-        sub_doc = base_doc.extend({
-            'content-place':\
+        sub_doc = \
+        base_doc.extend({
+
+            # overriding `content-place` block
+            'content-place':
+
                 FORM(
                     INPUT(_type='text', _id='name', name='name'),
                     BUTTON('Submit')
                 )
+
         })
 
         self.assertEqual(
