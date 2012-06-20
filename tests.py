@@ -82,16 +82,16 @@ class TestGenerateHtml(unittest.TestCase):
             )
         )
 
+        sub_doc = base_doc.extend({
+            'content-place':\
+                FORM(
+                    INPUT(_type='text', _id='name', name='name'),
+                    BUTTON('Submit')
+                )
+        })
+
         self.assertEqual(
-
-            base_doc.extend({
-                'content-place': \
-                 FORM(
-                     INPUT(_type='text', _id='name', name='name'),
-                     BUTTON('Submit')
-                 )
-            }).render(),
-
+            sub_doc.render(),
             '<html>\n'
             '    <head>\n'
             '        <title>Title of base.</title>\n'
