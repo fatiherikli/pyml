@@ -64,6 +64,13 @@ class TestGenerateHtml(unittest.TestCase):
             '</html>'
         )
 
+    def test_comments(self):
+        self.assertEqual(
+            ( ~BR() ).render(),
+            '<!-- <br /> -->'
+        )
+
+
 
 if __name__ == '__main__':
     unittest.main()
