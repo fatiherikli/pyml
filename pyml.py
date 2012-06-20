@@ -5,9 +5,11 @@ class BaseNode(object):
     indent = 0 # will be computed runtime
     commented = False
     data = None
+    block_name = None
+
 
     def get_indent(self):
-        return ' ' * 4 * self.indent
+            return ' ' * 4 * self.indent
 
 
 class TextNode(BaseNode):
@@ -77,7 +79,13 @@ class TagNode(BaseNode):
 
     def _recursive_for_indent(self, tag, indent=1):
         for sub_tag in tag.content:
+            if sub_tag.block_name and\
+               sub_tag.block_name in self.overrides:
+                tag.content[tag.content.index(sub_tag)]  = sub_tag = \
+                self.overrides[sub_tag.block_name]
+
             sub_tag.indent = indent
+
             if isinstance(sub_tag, TagNode):
                 self._recursive_for_indent(sub_tag, indent+1)
 
@@ -99,6 +107,10 @@ class TagNode(BaseNode):
         return self.prepare()
 
 
+    def extend(self, overrides):
+        self.overrides = overrides
+        return self
+
     # OPERATOR OVERLOADINGS
 
     def __mul__(self, multiplier):
@@ -115,6 +127,10 @@ class TagNode(BaseNode):
             clone_object.data = mapping
             mapped_list.append(clone_object)
         return mapped_list
+
+    def __floordiv__(self, block_name):
+        self.block_name = block_name
+        return self
 
     def __setattr__(self, key, value):
         if key.endswith('_attr'):

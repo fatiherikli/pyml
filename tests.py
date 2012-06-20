@@ -71,6 +71,44 @@ class TestGenerateHtml(unittest.TestCase):
         )
 
 
+    def test_inheritance(self):
+        base_doc = \
+        HTML(
+            HEAD(
+                TITLE('Title of base.')
+            ),
+            BODY(
+                DIV(id='container') // 'content-place'
+            )
+        )
+
+        self.assertEqual(
+
+            base_doc.extend({
+                'content-place': \
+                 FORM(
+                     INPUT(_type='text', _id='name', name='name'),
+                     BUTTON('Submit')
+                 )
+            }).render(),
+
+            '<html>\n'
+            '    <head>\n'
+            '        <title>Title of base.</title>\n'
+            '    </head>\n'
+            '    <body>\n'
+            '        <form>\n'
+            '            <input type="text" id="name" name="name"></input>\n'
+            '            <button>Submit</button>\n'
+            '        </form>\n'
+            '    </body>\n'
+            '</html>',
+
+        )
+
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
