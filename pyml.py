@@ -7,7 +7,6 @@ class BaseNode(object):
     data = None
     block_name = None
 
-
     def get_indent(self):
             return ' ' * 4 * self.indent
 
